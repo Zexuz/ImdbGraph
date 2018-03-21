@@ -16,6 +16,7 @@ namespace ImdbGraph.WebAPI.Helper
         {
             var serie = new Serie
             {
+                Name = GetName(document),
                 ImdbId = GetImdbId(document),
                 Bio = GetBio(document),
                 Rating = GetRating(document),
@@ -25,6 +26,23 @@ namespace ImdbGraph.WebAPI.Helper
 
 
             return Task.FromResult(serie);
+        }
+      
+
+        public List<int> GetSeasonNr(IDocument document)
+        {
+            var liElements = document.QuerySelectorAll("ul.list-inline.nav.nav-pills a.season");
+
+            return liElements.Select(e => int.Parse(e.GetAttribute("season_number").Trim())).ToList();
+        }
+        
+        private string GetName(IDocument document)
+        {
+            var allText = document.QuerySelector("#pagecontent div.media div.media-body h1").TextContent.Trim();
+
+            var text = document.QuerySelector("#titleOverview div.media-body small.sub-header").TextContent.Trim();
+            
+            return allText.Replace(text,"").Trim();
         }
 
         private static string GetBio(IDocument document)

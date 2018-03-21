@@ -1,8 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AngleSharp;
-using AngleSharp.Dom;
 using ImdbGraph.Models;
 using ImdbGraph.WebAPI.Helper;
 
@@ -22,47 +20,23 @@ namespace ImdbGraph.WebAPI.Services
         
         public async Task<Serie> FromImdbId(string imdbId)
         {
-            var site = new Site(_baseUrl,$"/title/{imdbId}");
-            var document = await site.Scrape();
+            var mainSite = new SiteService(_baseUrl,$"/title/{imdbId}");
+            var document = await mainSite.Scrape();
             var serie = await _seriesParser.ParserFromImdbDocument(document);
+            serie.Seasons = await LookUpSeriesSeason(imdbId);
 
             return serie;
         }
         
-    }
-
-    public class Site
-    {
-        public string BaseUrl { get; }
-        public string Path    { get; }
-
-        public Site(string baseUrl, string path)
+        private async Task<List<Season>> LookUpSeriesSeason(string imdbId)
         {
-            if(baseUrl.Last() == '/' && path[0] == '/')
-                throw new ArgumentException("'/' on both baseUrl and path");
-            
-            if(baseUrl.Last() != '/' && path[0] != '/')
-                throw new ArgumentException("Missing '/' on either baseUrl or path");
-            
-            BaseUrl = baseUrl;
-            Path = path;
+            var seasonSite = new SiteService(_baseUrl,$"/title/{imdbId}/episodes/?season=1");
+            var seasonDocument = await seasonSite.Scrape();
+            return _seriesParser.GetSeasonNr(seasonDocument).Select(nr => new Season
+            {
+                Nr = nr
+            }).ToList();
         }
-
-
-        public async Task<IDocument> Scrape()
-        {
-            var config = Configuration.Default.WithDefaultLoader();
-            var document = await BrowsingContext.New(config).OpenAsync(BaseUrl + Path);
-
-            return document;
-
-
-// This CSS selector gets the desired content
-//            var cellSelector = "tr.vevent td:nth-child(3)";
-// Perform the query to get all cells with the content
-//            var cells = document.QuerySelectorAll(cellSelector);
-// We are only interested in the text - select it with LINQ
-//            var titles = cells.Select(m => m.TextContent);
-        }
+        
     }
 }

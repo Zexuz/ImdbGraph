@@ -4,6 +4,7 @@ namespace ImdbGraph.Models
 {
     public class Serie
     {
+        public string Name { get; set; }
         public string ImdbId { get; set; }
 
         public Time Time { get; set; }
