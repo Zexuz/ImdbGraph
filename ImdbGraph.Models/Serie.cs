@@ -6,9 +6,9 @@ namespace ImdbGraph.Models
     {
         public string ImdbId { get; set; }
 
-        public int          StartYear { get; set; }
-        public int?         EndYear   { get; set; }
-        public List<string> Tags      { get; set; }
+        public Time Time { get; set; }
+
+        public List<string> Tags { get; set; }
 
         public string Bio { get; set; }
 
@@ -16,5 +16,10 @@ namespace ImdbGraph.Models
 
         public List<Season> Seasons { get; set; }
     }
-    
+
+    public class Time
+    {
+        public int  StartYear { get; set; }
+        public int? EndYear   { get; set; }
+    }
 }
