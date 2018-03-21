@@ -14,18 +14,30 @@ namespace ImdbGraph.WebAPI.Helper
     {
         public Task<Serie> ParserFromImdbDocument(IDocument document)
         {
-            var serie = new Serie();
-            serie.ImdbId = document.Head.QuerySelectorAll("meta")
-                .Where(e => e.GetAttribute("property") == "pageId")
-                .Select(e => e.GetAttribute("content"))
-                .FirstOrDefault();
-            serie.Bio = document.QuerySelector("#pagecontent div.media div.media-body p.plot-description").Text().Trim();
-            serie.Rating = GetRating(document);
-            serie.Time = GetRunningPeriod(document);
-            serie.Tags = GetTags(document);
+            var serie = new Serie
+            {
+                ImdbId = GetImdbId(document),
+                Bio = GetBio(document),
+                Rating = GetRating(document),
+                Time = GetRunningPeriod(document),
+                Tags = GetTags(document)
+            };
 
 
             return Task.FromResult(serie);
+        }
+
+        private static string GetBio(IDocument document)
+        {
+            return document.QuerySelector("#pagecontent div.media div.media-body p.plot-description").Text().Trim();
+        }
+
+        private static string GetImdbId(IDocument document)
+        {
+            return document.Head.QuerySelectorAll("meta")
+                .Where(e => e.GetAttribute("property") == "pageId")
+                .Select(e => e.GetAttribute("content"))
+                .FirstOrDefault();
         }
 
         private static List<string> GetTags(IDocument document)
