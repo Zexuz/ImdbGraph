@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using ImdbGraph.WebAPI.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,9 +18,11 @@ namespace ImdbGraph.WebAPI
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public AutofacServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            return IoC.Init(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
