@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImdbGraph.WebAPI", "ImdbGraph.WebAPI\ImdbGraph.WebAPI.csproj", "{D6C7E892-4530-4F2E-A9AE-1F27A2AB23A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImdbGraph.Models", "ImdbGraph.Models\ImdbGraph.Models.csproj", "{A7358A3C-F6F7-477F-895E-180DF015C58C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{D6C7E892-4530-4F2E-A9AE-1F27A2AB23A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6C7E892-4530-4F2E-A9AE-1F27A2AB23A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6C7E892-4530-4F2E-A9AE-1F27A2AB23A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7358A3C-F6F7-477F-895E-180DF015C58C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7358A3C-F6F7-477F-895E-180DF015C58C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7358A3C-F6F7-477F-895E-180DF015C58C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7358A3C-F6F7-477F-895E-180DF015C58C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

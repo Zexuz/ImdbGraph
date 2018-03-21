@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using ImdbGraph.WebAPI.Helper;
 using ImdbGraph.WebAPI.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,7 +17,8 @@ namespace ImdbGraph.WebAPI
                 builder.Populate(services);
             
 
-            builder.RegisterType<TestService>().As<ITestService>().SingleInstance();
+            builder.RegisterType<SeriesParser>().As<ISeriesParser>().SingleInstance();
+            builder.RegisterType<ImdbScrapeService>().As<IImdbScrapeService>().SingleInstance();
             
             return new AutofacServiceProvider(builder.Build());
         }
