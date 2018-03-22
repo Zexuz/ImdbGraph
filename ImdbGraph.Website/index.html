@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--suppress XmlUnboundNsPrefix -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search for IMDB id</title>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+</head>
+<body>
+
+<h1 id="app">{{message}}</h1>
+
+<div id="app-2">
+  <span v-bind:title="message">
+    Hover your mouse over me for a few seconds
+    to see my dynamically bound title!
+  </span>
+</div>
+
+
+<div id="app-3">
+    <span v-if="seen">Now you see me</span>
+</div>
+
+<div id="app-4">
+    <ol>
+        <li v-for="todo in todos">
+            {{ todo.text }}
+        </li>
+    </ol>
+</div>
+
+<div id="app-5">
+    <div class="row">
+        <form class="col s12"  onsubmit="return false">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input v-model="message"  id="imdbId" type="text" class="validate">
+                    <label for="imdbId">Imdb Id</label>
+                </div>
+            </div>
+            <div class="row">
+                <button v-on:click="getImdbSeries">SendCall</button>
+            </div>
+        </form>
+    </div>
+
+    <div  v-if="seen" class="meida-info">
+        <h3>{{name}}</h3>
+        <h6>{{imdbId}}</h6>
+
+        <ul>
+            <li v-for="item in items">
+                {{ item }}
+            </li>
+        </ul>
+        <p>{{bio}}</p>
+    </div>
+
+</div>
+
+<canvas id="myChart" width="400" height="150"></canvas>
+
+<script type="text/javascript" src="js/myApp.js"></script>
+</body>
+</html>
