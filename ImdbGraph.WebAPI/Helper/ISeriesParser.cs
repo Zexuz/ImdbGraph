@@ -9,5 +9,6 @@ namespace ImdbGraph.WebAPI.Helper
     {
         Task<Serie> ParserFromImdbDocument(IDocument document);
         List<int> GetSeasonNr(IDocument document);
+        Task<Season> GetSeason(IDocument document);
     }
 }

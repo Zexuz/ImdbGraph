@@ -35,7 +35,25 @@ namespace ImdbGraph.WebAPI.Helper
 
             return liElements.Select(e => int.Parse(e.GetAttribute("season_number").Trim())).ToList();
         }
-        
+
+        public Task<Season> GetSeason(IDocument document)
+        {
+            var season = new Season();
+            season.Nr =int.Parse(document.QuerySelector("li.season_box.active a").GetAttribute("season_number"););
+            
+            var episodeElements = document.QuerySelectorAll("#eplist > div");
+
+            foreach (var episodeElement in episodeElements)
+            {
+                var episode = new Episode();
+
+                episode.Name = episodeElement.QuerySelector("a span strong").TextContent;
+                season.Episodes.Add(episode);
+            }
+
+            return Task.FromResult(season);
+        }
+
         private string GetName(IDocument document)
         {
             var allText = document.QuerySelector("#pagecontent div.media div.media-body h1").TextContent.Trim();

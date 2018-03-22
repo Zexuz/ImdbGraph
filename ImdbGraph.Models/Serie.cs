@@ -16,6 +16,11 @@ namespace ImdbGraph.Models
         public Rating Rating { get; set; }
 
         public List<Season> Seasons { get; set; }
+
+        public Serie()
+        {
+            Seasons = new List<Season>();
+        }
     }
 
     public class Time

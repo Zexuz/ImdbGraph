@@ -6,5 +6,10 @@ namespace ImdbGraph.Models
     {
         public int           Nr       { get; set; }
         public List<Episode> Episodes { get; set; }
+
+        public Season()
+        {
+            Episodes = new List<Episode>();
+        }
     }
 }
