@@ -39,7 +39,7 @@ namespace ImdbGraph.WebAPI.Helper
         public Task<Season> GetSeason(IDocument document)
         {
             var season = new Season();
-            season.Nr =int.Parse(document.QuerySelector("li.season_box.active a").GetAttribute("season_number"););
+            season.Nr =int.Parse(document.QuerySelector("li.season_box.active a").GetAttribute("season_number"));
             
             var episodeElements = document.QuerySelectorAll("#eplist > div");
 
