@@ -45,13 +45,30 @@ namespace ImdbGraph.WebAPI.Helper
 
             foreach (var episodeElement in episodeElements)
             {
-                var episode = new Episode();
+                var episode = CreateEpisode(episodeElement);
 
-                episode.Name = episodeElement.QuerySelector("a span strong").TextContent;
                 season.Episodes.Add(episode);
             }
 
             return Task.FromResult(season);
+        }
+
+        private static Episode CreateEpisode(IElement episodeElement)
+        {
+            var regEx = new Regex(@"(\d*)\.");
+
+            var episode = new Episode();
+
+            episode.Name = episodeElement.QuerySelector("a span strong").TextContent;
+
+            var match = regEx.Match(episodeElement.QuerySelector("a span").TextContent.Trim());
+            episode.Nr = int.Parse(match.Groups[1].Value);
+            episode.Rating = new Rating
+            {
+                NrOfVotes = 0,
+                Value = double.Parse(episodeElement.QuerySelector("a > strong").TextContent, CultureInfo.InvariantCulture)
+            };
+            return episode;
         }
 
         private string GetName(IDocument document)

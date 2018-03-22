@@ -7,5 +7,6 @@ namespace ImdbGraph.Models
         public DateTime AirDate { get; set; }
         public int      Nr      { get; set; }
         public string   Name    { get; set; }
+        public Rating   Rating  { get; set; }
     }
 }
