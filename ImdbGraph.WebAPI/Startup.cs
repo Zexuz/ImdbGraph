@@ -31,6 +31,8 @@ namespace ImdbGraph.WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials().Build());
+
             app.UseMvc();
         }
     }
